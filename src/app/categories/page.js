@@ -3,14 +3,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FcRating } from "react-icons/fc";
 import Image from 'next/image';
 import Link from 'next/link';
+import ButtonDrawer from '@/components/util/ButtonDrawer';
 
 
 
 export async function getdata() {
 
-    let data = await fetch("http://localhost:3000/api/categories", {
-        cache: "no-store"
-    })
+    let data = await fetch("http://localhost:3000/api/categories")
 
     data = await data.json();
 
@@ -67,14 +66,14 @@ const Categories = async () => {
 
 
 
-                            <div className='py-10 grid lg:grid-cols-4 justify-center items-center gap-4'>
+                            <div className='py-10 grid lg:grid-cols-4 md:grid-cols-2 justify-center items-center gap-4'>
 
 
                                 {
                                     breakfastFood.map((item) => (
                                         <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
 
-                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+                                            <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
 
 
 
@@ -116,11 +115,14 @@ const Categories = async () => {
 
 
                                             </div>
+                                            <div className="flex gap-3 justify-center items-center">
                                             <Link href={`/categories/${item._id}`}>
                                                 <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                    Order Now
+                                                    Details
                                                 </button>
                                             </Link>
+                                            <ButtonDrawer cardTitle={item.title} />
+                                            </div>
 
                                         </div>
                                     ))
@@ -155,55 +157,58 @@ const Categories = async () => {
                                     dinnerFood.map((item) => (
                                         <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
 
-                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+                                        <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
 
 
 
 
-                                            <div className='flex justify-center items-center gap-2'>
-                                                <div className="avatar-group -space-x-6 rtl:space-x-reverse">
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar placeholder">
-                                                        <div className="w-10 bg-neutral text-neutral-content">
-                                                            <span>+9</span>
-                                                        </div>
+                                        <div className='flex justify-center items-center gap-2'>
+                                            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                                                     </div>
                                                 </div>
-                                                <FcRating className='text-2xl' />
-                                                <div>
-                                                    <p className='text-xl font-semibold'>({item.rating})</p>
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                    </div>
+                                                </div>
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                    </div>
+                                                </div>
+                                                <div className="avatar placeholder">
+                                                    <div className="w-10 bg-neutral text-neutral-content">
+                                                        <span>+9</span>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-                                            <div className="text-center  space-y-2">
-
-
-                                                <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
-
-
+                                            <FcRating className='text-2xl' />
+                                            <div>
+                                                <p className='text-xl font-semibold'>({item.rating})</p>
                                             </div>
-                                            <Link href={`/categories/${item._id}`}>
-                                                <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                    Order Now
-                                                </button>
-                                            </Link>
+                                        </div>
+
+
+                                        <div className="text-center  space-y-2">
+
+
+                                            <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
+
 
                                         </div>
+                                        <div className="flex gap-3 justify-center items-center">
+                                        <Link href={`/categories/${item._id}`}>
+                                            <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                Details
+                                            </button>
+                                        </Link>
+                                        <ButtonDrawer/>
+                                        </div>
+
+                                    </div>
                                     ))
                                 }
 
@@ -223,55 +228,58 @@ const Categories = async () => {
                                     lunchFood.map((item) => (
                                         <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
 
-                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+                                        <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
 
 
 
 
-                                            <div className='flex justify-center items-center gap-2'>
-                                                <div className="avatar-group -space-x-6 rtl:space-x-reverse">
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar">
-                                                        <div className="w-10">
-                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                        </div>
-                                                    </div>
-                                                    <div className="avatar placeholder">
-                                                        <div className="w-10 bg-neutral text-neutral-content">
-                                                            <span>+9</span>
-                                                        </div>
+                                        <div className='flex justify-center items-center gap-2'>
+                                            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                                                     </div>
                                                 </div>
-                                                <FcRating className='text-2xl' />
-                                                <div>
-                                                    <p className='text-xl font-semibold'>({item.rating})</p>
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                    </div>
+                                                </div>
+                                                <div className="avatar">
+                                                    <div className="w-10">
+                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                    </div>
+                                                </div>
+                                                <div className="avatar placeholder">
+                                                    <div className="w-10 bg-neutral text-neutral-content">
+                                                        <span>+9</span>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-                                            <div className="text-center  space-y-2">
-
-
-                                                <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
-
-
+                                            <FcRating className='text-2xl' />
+                                            <div>
+                                                <p className='text-xl font-semibold'>({item.rating})</p>
                                             </div>
-                                            <Link href={`/categories/${item._id}`}>
-                                            <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                Order Now
-                                            </button>
-                                            </Link>
+                                        </div>
+
+
+                                        <div className="text-center  space-y-2">
+
+
+                                            <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
+
 
                                         </div>
+                                        <div className="flex gap-3 justify-center items-center">
+                                        <Link href={`/categories/${item._id}`}>
+                                            <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                Details
+                                            </button>
+                                        </Link>
+                                        <ButtonDrawer/>
+                                        </div>
+
+                                    </div>
                                     ))
                                 }
 
