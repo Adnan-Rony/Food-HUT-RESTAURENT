@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../../../public/hero.svg'
+import img from '../../../public/8e75724101f6d754e13f12101adf87f2.png'
 import { FcAssistant } from "react-icons/fc";
 import Image from 'next/image';
 const About = () => {
@@ -7,8 +7,8 @@ const About = () => {
         <div className='py-5'>
 
             <div className='grid lg:grid-cols-2 grid-cols-1 gap-4 justify-center items-center'>
-                <div>
-                    <Image src={img}></Image>
+                <div >
+                    <Image  src={img}></Image>
                 </div>
 
                 <div className='p-5'>
