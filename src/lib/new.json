@@ -1,0 +1,65 @@
+[
+  {
+     
+    "picture": "https://i.ibb.co/X7h4zbf/png-transparent-grilled-steak-with-spices-on-black-plate-art-beefsteak-barbecue-sauce-jd-com-black-p.png",
+    "name": "steak",
+    "categories": "Grilled",
+    "price": "300",
+    "description": "Juicy grilled steak served with mashed potatoes and grilled vegetables",
+    "rating": "4.7"
+  },
+    {
+     
+        "picture": "https://i.ibb.co/vzbQJKz/pngtree-burger-png-with-fries-and-drink-png-image-6236605.jpg",
+        "name": "burger",
+        "categories": "Fast Food",
+        "price": "150",
+        "description": "Delicious beef burger with cheese, lettuce, and tomato",
+        "rating": "4.5"
+      },
+      {
+       
+        "picture": "https://i.ibb.co/QcLD90g/maki-sushi-isolated-white-2829-7304.jpg",
+        "name": "sushi",
+        "categories": "Japanese",
+        "price": "250",
+        "description": "Assortment of fresh sushi rolls with wasabi and soy sauce",
+        "rating": "4.8"
+      },
+   
+      {
+      
+        "picture": "https://i.ibb.co/G9kMw8F/taco-that-has-beef-it-873925-20284.jpg",
+        "name": "taco",
+        "categories": "Mexican",
+        "price": "120",
+        "description": "Authentic Mexican tacos with seasoned meat, salsa, and guacamole",
+        "rating": "4.7"
+      },
+      {
+      
+        "picture": "https://i.ibb.co/5BtnFBc/png-sushi-16550.png",
+        "name": "sashimi",
+        "categories": "Japanese",
+        "price": "280",
+        "description": "Fresh slices of raw fish served with pickled ginger and wasabi",
+        "rating": "4.9"
+      },
+    
+      {
+     
+        "picture": "https://i.ibb.co/YRWVVJG/8592-png-1200.png",
+        "name": "curry",
+        "categories": "Indian",
+        "price": "200",
+        "description": "Spicy chicken curry with aromatic Indian spices, served with rice",
+        "rating": "4.6"
+      }
+      
+      
+      
+      
+      
+      
+      
+]
