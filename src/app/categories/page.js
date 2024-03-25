@@ -4,38 +4,54 @@ import { FcRating } from "react-icons/fc";
 import Image from 'next/image';
 import Link from 'next/link';
 import ButtonDrawer from '@/components/util/ButtonDrawer';
+import { useEffect, useState } from 'react';
 
 
 
-export async function getdata() {
+// export async function getdata() {
 
-    let data = await fetch("http://localhost:3000/api/categories")
+//     let data = await fetch("http://localhost:3000/api/categories")
 
-    data = await data.json();
+//     data = await data.json();
 
-    if (data.success) {
-        return data.result;
-    }
-    else {
-        return { success: false }
-    }
+//     if (data.success) {
+//         return data.result;
+//     }
+//     else {
+//         return { success: false }
+//     }
+// }
+
+const Categories = () => {
+
+    const [post, setPost] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/api/categories");
+                const data = await response.json();
+                if (data.success) {
+                    setPost(data.result);
+                } else {
+                    console.error("Failed to fetch data");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const breakfastFood = post.filter(item => item.category === 'breakfast');
+    const lunchFood = post.filter(item => item.category === 'lunch');
+    const dinnerFood = post.filter(item => item.category === 'dinner');
+
+
+const cart=()=>{
+    console.log("adnns")
 }
-
-
-
-const Categories = async () => {
-
-    const post = await getdata();
-
-    const breakfastFood = post.filter(item => item.category === 'breakfast')
-    const lunchFood = post.filter(item => item.category === 'lunch')
-    const dinnerFood = post.filter(item => item.category === 'dinner')
-
-
-
-
-
-
 
 
     return (
@@ -62,7 +78,7 @@ const Categories = async () => {
 
                         <TabPanel>
 
-
+ 
 
 
 
@@ -73,7 +89,76 @@ const Categories = async () => {
                                     breakfastFood.map((item) => (
                                         <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
 
-                                            <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+
+
+
+
+                                            <div className='flex justify-center items-center gap-2'>
+                                                <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar placeholder">
+                                                        <div className="w-10 bg-neutral text-neutral-content">
+                                                            <span>+9</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <FcRating className='text-2xl' />
+                                                <div>
+                                                    <p className='text-xl font-semibold'>({item.rating})</p>
+                                                </div>
+                                            </div>
+
+
+                                            <div className="text-center  space-y-2">
+
+
+                                                <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
+
+
+                                            </div>
+                                            <div className="flex gap-3 justify-between items-center">
+                                                <Link href={`/categories/${item._id}`}>
+                                                    <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                        Details
+                                                    </button>
+                                                </Link>
+                                                <button onclick  className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                   add to cart
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    ))
+                                }
+                                          
+                            </div>
+                                
+
+                        </TabPanel>
+                        <TabPanel>
+                            <div className='py-10 grid lg:grid-cols-4 justify-center items-center gap-4'>
+
+
+                                {
+                                    dinnerFood.map((item) => (
+                                        <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
+
+                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
 
 
 
@@ -116,99 +201,15 @@ const Categories = async () => {
 
                                             </div>
                                             <div className="flex gap-3 justify-center items-center">
-                                            <Link href={`/categories/${item._id}`}>
-                                                <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                    Details
-                                                </button>
-                                            </Link>
-                                            <ButtonDrawer cardTitle={item.title} />
+                                                <Link href={`/categories/${item._id}`}>
+                                                    <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                        Details
+                                                    </button>
+                                                </Link>
+                                                <ButtonDrawer />
                                             </div>
 
                                         </div>
-                                    ))
-                                }
-
-
-
-
-
-
-
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        </TabPanel>
-                        <TabPanel>
-                            <div className='py-10 grid lg:grid-cols-4 justify-center items-center gap-4'>
-
-
-                                {
-                                    dinnerFood.map((item) => (
-                                        <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
-
-                                        <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
-
-
-
-
-                                        <div className='flex justify-center items-center gap-2'>
-                                            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                    </div>
-                                                </div>
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                    </div>
-                                                </div>
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                    </div>
-                                                </div>
-                                                <div className="avatar placeholder">
-                                                    <div className="w-10 bg-neutral text-neutral-content">
-                                                        <span>+9</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <FcRating className='text-2xl' />
-                                            <div>
-                                                <p className='text-xl font-semibold'>({item.rating})</p>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="text-center  space-y-2">
-
-
-                                            <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
-
-
-                                        </div>
-                                        <div className="flex gap-3 justify-center items-center">
-                                        <Link href={`/categories/${item._id}`}>
-                                            <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                Details
-                                            </button>
-                                        </Link>
-                                        <ButtonDrawer/>
-                                        </div>
-
-                                    </div>
                                     ))
                                 }
 
@@ -228,58 +229,58 @@ const Categories = async () => {
                                     lunchFood.map((item) => (
                                         <div key={item._id} className='cardbg rounded-2xl  w-80 h-[500px]  lg:px-5 px-6 space-y-2'>
 
-                                        <Image  width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
+                                            <Image width={200} height={200} alt='not showing' className='lg:w-[250px] lg:h-[250px] justify-center flex items-center rounded-full' src={item.image}></Image>
 
 
 
 
-                                        <div className='flex justify-center items-center gap-2'>
-                                            <div className="avatar-group -space-x-6 rtl:space-x-reverse">
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                            <div className='flex justify-center items-center gap-2'>
+                                                <div className="avatar-group -space-x-6 rtl:space-x-reverse">
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar">
+                                                        <div className="w-10">
+                                                            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="avatar placeholder">
+                                                        <div className="w-10 bg-neutral text-neutral-content">
+                                                            <span>+9</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                    </div>
-                                                </div>
-                                                <div className="avatar">
-                                                    <div className="w-10">
-                                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                                    </div>
-                                                </div>
-                                                <div className="avatar placeholder">
-                                                    <div className="w-10 bg-neutral text-neutral-content">
-                                                        <span>+9</span>
-                                                    </div>
+                                                <FcRating className='text-2xl' />
+                                                <div>
+                                                    <p className='text-xl font-semibold'>({item.rating})</p>
                                                 </div>
                                             </div>
-                                            <FcRating className='text-2xl' />
-                                            <div>
-                                                <p className='text-xl font-semibold'>({item.rating})</p>
+
+
+                                            <div className="text-center  space-y-2">
+
+
+                                                <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
+
+
                                             </div>
+                                            <div className="flex gap-3 justify-center items-center">
+                                                <Link href={`/categories/${item._id}`}>
+                                                    <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
+                                                        Details
+                                                    </button>
+                                                </Link>
+                                                <ButtonDrawer />
+                                            </div>
+
                                         </div>
-
-
-                                        <div className="text-center  space-y-2">
-
-
-                                            <p className='text-2xl font-bold text-[#F54748]'>{item.title} </p><span className='text-xl font-bold'>{item.price}$</span>
-
-
-                                        </div>
-                                        <div className="flex gap-3 justify-center items-center">
-                                        <Link href={`/categories/${item._id}`}>
-                                            <button className='btn flex  mx-auto btn-sm bg-[#F54748] hover:bg-[#FDC55E] border-none text-white'>
-                                                Details
-                                            </button>
-                                        </Link>
-                                        <ButtonDrawer/>
-                                        </div>
-
-                                    </div>
                                     ))
                                 }
 
@@ -299,6 +300,6 @@ const Categories = async () => {
             </div>
         </div>
     );
-};
+}
 
 export default Categories;
